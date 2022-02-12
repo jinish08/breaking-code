@@ -18,7 +18,7 @@ body {
   transition: 0.5s;
   display: flex;
   flex-direction: row;
-  width: 70%;
+  width: 90%;
   margin: auto;
 }
 /* .container1:hover .card {
@@ -34,13 +34,13 @@ body {
   justify-content: center;
   align-items: center;
   transition: 0.5s;
-  margin: 5px;
+  margin: 15px;
 }
 
 .container1 .card .content {
   text-align: center;
   z-index: 2;
-  padding: 0 20px;
+  padding: 10px 20px;
   transition: 0.5s;
 }
 /* .container1 .card:hover {

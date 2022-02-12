@@ -44,7 +44,7 @@ const Landing = () => {
               <div className="flip-card-front">
                 <img
                   className="gfImg"
-                  src="/images/waste.png"
+                  src="/images/wasteimage.jpg"
                   alt="Avatar"
                   style={{ width: "300px", height: "300px" }}
                 />
