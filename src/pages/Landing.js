@@ -1,28 +1,40 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import "../css/landing.css";
 import { Link } from "react-router-dom";
 import Login from "../components/Login";
+import Signup from "../components/Signup";
 
 const Landing = () => {
+  const [sign, setSign] = useState(false);
+  const [loginin, setLogin] = useState(false);
 
-  const [button, setButton] = useState(false);
+  const handleLogin = () => {
+    setLogin(!loginin);
+  }
 
-  const handleClick = () => {
-    setButton(!button);
+  const handleSign = () => {
+    setSign(!sign);
   };
 
   return (
     <>
-        <section class="header">
-        <img src="images/menu.png" alt="menu" class="menuImg" id="menuImgI"/>
-        <div class="textBox">
-            <h1>Your Waste is not a Waste Anymore!</h1>
-            {/* <p>This is a sample website made by me for the S4DS interview. <br/>Hope you like it ;</p> */}
-            <a href="#section2" class="ourBtn">Learn More</a>
-            <br />
-            <Link to="/" onClick={handleClick} className="ourBtn">Get Started</Link>
+      <section className="header">
+        <img src="images/menu.png" alt="menu" className="menuImg" id="menuImgI" />
+        <div className="textBox">
+          <h1>Your Waste is not a Waste Anymore!</h1>
+          {/* <p>This is a sample website made by me for the S4DS interview. <br/>Hope you like it ;</p> */}
+          <a href="#section2" className="ourBtn">
+            Learn More
+          </a>
+          <br />
+          <Link to="/" onClick={handleLogin} className="ourBtn">
+            Login
+          </Link>
+          <Link to="/" onClick={handleSign} className="ourBtn">
+            Signup
+          </Link>
         </div>
-    </section>
+      </section>
       <section className="courses">
         <h1 className="h1Course">What we do</h1>
 
@@ -38,7 +50,10 @@ const Landing = () => {
                 />
               </div>
               <div className="flip-card-back" id="card1b">
-                <p>India generates about 350 million tonnes of agricultural waste every year</p>
+                <p>
+                  India generates about 350 million tonnes of agricultural waste
+                  every year
+                </p>
               </div>
             </div>
           </div>
@@ -74,7 +89,8 @@ const Landing = () => {
           </div>
         </div>
       </section>
-      <Login handleClick={handleClick} button={button}/>
+      <Login loginin={loginin} handleLogin={handleLogin} />
+      <Signup sign={sign} handleSign={handleSign} />
     </>
   );
 };

@@ -5,7 +5,7 @@ import "../css/main.css";
 const Main = () => {
   return (
     <>
-      <section class="header">
+      <section className="header">
         <Navbar />
         <div class="container">
           <div class="card">

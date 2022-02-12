@@ -6,7 +6,7 @@ import CardRedeem from "../components/CardRedeem";
 const Redeem = () => {
   return (
     <>
-      <section class="header">
+      <section className="header">
         <Navbar />
         <div class="container1">
           <CardRedeem id="1" name="Tractor" points="15000" />
