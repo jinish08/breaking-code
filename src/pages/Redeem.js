@@ -5,7 +5,7 @@ import "../css/main.css";
 const Redeem = () => {
   return (
     <>
-      <section class="header">
+      <section className="header">
         <Navbar />
       </section>
     </>

@@ -5,7 +5,7 @@ import "../css/main.css";
 const Sell = () => {
   return (
     <>
-      <section class="header">
+      <section className="header">
         <Navbar />
       </section>
     </>
