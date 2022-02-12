@@ -17,14 +17,6 @@
   color: #2d3e52;
 }
 
-.btn-primary {
-  background-color: #90e0ef !important;
-  margin-top: 10px;
-  color: black !important;
-  border-width: 0px !important;
-  font-size: 30px !important;
-}
-
 #Redeem {
   background-image: url("../../public/images/redeem.jpg");
 }

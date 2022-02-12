@@ -25,11 +25,6 @@ export const Navbar = () => {
                 Home
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="redeem">
-                Redeem
-              </a>
-            </li>
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -66,6 +61,11 @@ export const Navbar = () => {
                   </a>
                 </li>
               </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="redeem">
+                Redeem
+              </a>
             </li>
           </ul>
         </div>

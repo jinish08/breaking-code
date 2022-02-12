@@ -5,11 +5,7 @@ const CardRedeem = (props) => {
     <>
       <div class="card">
         <div class="content">
-          <img
-            src="/images/tractor.png"
-            alt="Missing"
-            style={{ borderRadius: "50%" }}
-          />
+          <img src="/images/tractor.png" alt="Missing" />
           <h2>{props.name}</h2>
           <p>Redeem Points: {props.points}</p>
         </div>
