@@ -1,14 +1,34 @@
 .container {
   padding-top: 50px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 400px;
 }
 
 .card {
   width: 35%;
-  margin-top: 50px;
 }
 
 .card-body {
-  background-color: #9ad1ec67;
+  background-color: #00b4d8;
+  text-align: center;
+  font-size: 30px;
+  color: #2d3e52;
+}
+
+.btn-primary {
+  background-color: #90e0ef !important;
+  margin-top: 10px;
+  color: black !important;
+  border-width: 0px !important;
+  font-size: 30px !important;
+}
+
+#Redeem {
+  background-image: url("../../public/images/redeem.jpg");
+}
+
+#Sell {
+  background-image: url("../../public/images/sell.png");
 }
