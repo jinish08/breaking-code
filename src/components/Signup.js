@@ -11,16 +11,46 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import useMounted from "../hooks/useMounted";
+import {createUserWithEmailAndPassword} from "firebase/auth"
+import {db} from "../utils/init-firebase"
+import { auth } from "../utils/init-firebase";
+import { collection, getDocs , addDoc } from 'firebase/firestore';
 
 const Signup = ({ handleSign , sign }) => {
     const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
 
   const { register} = useAuth();
 
   const mounted = useMounted();
+
+  const userCollectionRef = collection(db, 'users');
+
+
+
+  const onSignup = async (email, password, username) => {
+    try {
+      const authUser = await createUserWithEmailAndPassword(
+          auth,
+        email,
+        password
+      );
+      console.log("Firebase Signup Succesfull ", authUser);
+
+		await addDoc(userCollectionRef, {
+			user_id: authUser.user.uid,
+            name: username,
+            email: authUser.user.email,
+            point: 0,
+            address: "",
+		});
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -52,21 +82,27 @@ const Signup = ({ handleSign , sign }) => {
           <img src="/images/login/Linkedin.svg" />
         </Flex>
         <form 
-        onSubmit={async (e) => {
-            e.preventDefault();
-            // your register logic here
-            console.log(email, password);
-            if (!email || !password) {
-              console.log("Please enter email and password");
+        onSubmit={
+            async (e) => {
+        //     e.preventDefault();
+        //     // your register logic here
+        //     console.log(email, password);
+        //     if (!email || !password) {
+        //       console.log("Please enter email and password");
+        //     }
+        //     setIsSubmiting(true);
+        //     register(email, password)
+        //       .then((response) => console.log(response))
+        //       .catch((error) => {
+        //         console.log(error);
+        //       })
+        //       .finally(() => mounted.current && setIsSubmiting(false));
+
+        //   }
+        e.preventDefault();
+        return onSignup(email,password,username)
             }
-            setIsSubmiting(true);
-            register(email, password)
-              .then((response) => console.log(response))
-              .catch((error) => {
-                console.log(error);
-              })
-              .finally(() => mounted.current && setIsSubmiting(false));
-          }}>
+          }>
           <Box>
             <Text textAlign="left" mx="16" my="3">
               Name
@@ -79,6 +115,7 @@ const Signup = ({ handleSign , sign }) => {
               _hover={{}}
               w="70%"
               required
+              onChange={(e) => setUsername(e.target.value)}
             />
             <Text textAlign="left" mx="16" my="3">
               Email
