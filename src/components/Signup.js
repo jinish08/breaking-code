@@ -47,6 +47,7 @@ const Signup = ({ handleSign , sign }) => {
             point: 0,
             address: "",
 		});
+        navigate("/main");
     } catch (error) {
       console.log(error);
     }
