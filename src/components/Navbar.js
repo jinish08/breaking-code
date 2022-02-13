@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../utils/init-firebase";
 import { useAuth } from "../contexts/AuthContext";
+import { NavLink } from "react-router-dom";
 
 // import { collection, query, where, getDocs } from "firebase/firestore";
 
@@ -48,7 +49,7 @@ export const Navbar = () => {
       <nav className="navbar navbar-expand-lg navbar-light ">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
-            Navbar
+            Nihal lavdu
           </a>
           <button
             className="navbar-toggler"
@@ -64,14 +65,14 @@ export const Navbar = () => {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="main">
+                <NavLink class="nav-link active" aria-current="page" to="/main">
                   Home
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
-                  href="/"
+                  href="#"
                   id="navbarDropdown"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -93,11 +94,6 @@ export const Navbar = () => {
                   <li>
                     <li>
                       <a className="dropdown-item" href="/">
-                        Points
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item" href="/">
                         Help
                       </a>
                     </li>
@@ -111,9 +107,9 @@ export const Navbar = () => {
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="redeem">
+                <NavLink class="nav-link active" to="/redeem">
                   Redeem
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>

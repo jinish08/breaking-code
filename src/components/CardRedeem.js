@@ -6,7 +6,7 @@ const CardRedeem = (props) => {
       <div class="card">
         <div class="content" style={{ height: "250px" }}>
           <img
-            src={"/images/tractor.png"}
+            src={"/images/" + props.image + ".jpg"}
             alt="Missing"
             width="200px"
             height="120px"
