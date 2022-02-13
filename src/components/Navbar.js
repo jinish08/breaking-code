@@ -48,9 +48,9 @@ export const Navbar = () => {
     <>
       <nav className="navbar navbar-expand-lg navbar-light ">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Nihal lavdu
-          </a>
+          <NavLink className="navbar-brand" to="/main">
+            Farm Grow
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -62,10 +62,14 @@ export const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <NavLink class="nav-link active" aria-current="page" to="/main">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/main"
+                >
                   Home
                 </NavLink>
               </li>
@@ -106,9 +110,14 @@ export const Navbar = () => {
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
-                <NavLink class="nav-link active" to="/redeem">
+              <li className="nav-item">
+                <NavLink className="nav-link active" to="/redeem">
                   Redeem
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link active" to="/sell">
+                  Sell
                 </NavLink>
               </li>
             </ul>
@@ -116,26 +125,26 @@ export const Navbar = () => {
         </div>
       </nav>
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
                 <p>{user.name}</p>
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <p>Points: {user.points}</p>
               <p>Email: {user.email}</p>
               <p>Address: {user.address}</p>

@@ -6,6 +6,7 @@ import {
   Input,
   Checkbox,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +30,7 @@ const Signup = ({ handleSign , sign }) => {
 
   const userCollectionRef = collection(db, 'users');
 
-
+  const toast = useToast();
 
   const onSignup = async (email, password, username) => {
     try {
@@ -39,6 +40,12 @@ const Signup = ({ handleSign , sign }) => {
         password
       );
       console.log("Firebase Signup Succesfull ", authUser);
+      toast({
+        description: "Signup Successful",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
 
 		await addDoc(userCollectionRef, {
 			user_id: authUser.user.uid,
@@ -49,6 +56,12 @@ const Signup = ({ handleSign , sign }) => {
 		});
         navigate("/main");
     } catch (error) {
+      toast({
+        description: "Some error occured",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
       console.log(error);
     }
   };

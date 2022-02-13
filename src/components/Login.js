@@ -1,6 +1,6 @@
 import { chakra } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
-import { Box, Flex, Text, Input, Checkbox, Button } from "@chakra-ui/react";
+import { Box, Flex, Text, Input, Checkbox, Button , useToast} from "@chakra-ui/react";
 import { useAuth } from "../contexts/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
 import useMounted from "../hooks/useMounted";
@@ -15,6 +15,8 @@ const Login = ({ handleLogin, loginin }) => {
   const [isSubmiting, setIsSubmiting] = useState(false);
 
   const { login } = useAuth();
+
+  const toast = useToast();
 
   const mounted = useMounted();
 
@@ -37,16 +39,34 @@ const Login = ({ handleLogin, loginin }) => {
             e.preventDefault();
             // your login logic here
             if (!email || !password) {
+              toast({
+                description: "Credentials not valid",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+              });
               console.log("Please enter email and password");
             }
             setIsSubmiting(true);
             login(email, password)
               .then((response) => {
                 console.log(response);
+                toast({
+                  description: "Login Successful",
+                  status: "success",
+                  duration: 5000,
+                  isClosable: true,
+                })
                 navigate("/main");
               })
               .catch((error) => {
                 console.log(error);
+                toast({
+                  description: error.message,
+                  status: "error",
+                  duration: 5000,
+                  isClosable: true,
+                })
               })
               .finally(() => mounted.current && setIsSubmiting(false));
           }}

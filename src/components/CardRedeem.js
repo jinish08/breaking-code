@@ -8,10 +8,15 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import {
+  useToast,
+} from "@chakra-ui/react";
 import { db } from "../utils/init-firebase";
 
 const CardRedeem = (props) => {
-  const { id, uid, quantity , showAlert } = props;
+  const { id, uid, quantity } = props;
+
+  const toast = useToast();
 
   const handleBuy = async () => {
     try {
@@ -28,7 +33,6 @@ const CardRedeem = (props) => {
           const newField = { quantity: parseInt(quantity) - 1 };
           await updateDoc(utilDoc, newField);
           console.log("Bought Succesfully");
-          showAlert("Bought Succesfully", "success");
         } catch (error) {
           console.log(error);
         }
@@ -38,12 +42,23 @@ const CardRedeem = (props) => {
           };
           await updateDoc(userDoc, newField);
           console.log("Points Updated Succesfully by " + props.points);
+          toast({
+            description: "Redeemed Successful",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
         } catch (error) {
           console.log(error);
         }
       } else {
         console.log("Insufficient Points");
-        showAlert("Insufficient Points", "danger");
+        toast({
+          description: "Insufficient Points",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       }
     } catch (error) {
       console.log(error);
@@ -51,8 +66,8 @@ const CardRedeem = (props) => {
   };
   return (
     <>
-      <div class="card">
-        <div class="content" style={{ height: "250px" }}>
+      <div className="card">
+        <div className="content" style={{ height: "250px" }}>
           <img
             src={"/images/" + props.image + ".jpg"}
             alt="Missing"
@@ -72,7 +87,7 @@ const CardRedeem = (props) => {
         </div>
         <button
           type="button"
-          class="btn btn-info"
+          className="btn btn-info"
           data-bs-toggle="modal"
           data-bs-target={"#exampleModal" + props.id}
           style={{ width: "80%", background: "#1572A1", color: "#9AD0EC" }}
@@ -81,40 +96,40 @@ const CardRedeem = (props) => {
         </button>
       </div>
       <div
-        class="modal fade"
+        className="modal fade"
         id={"exampleModal" + props.id}
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
                 {props.name}
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               Are you sure you want to use {props.points} points for{" "}
               {props.name}
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Close
               </button>
               <button
                 type="button"
-                class="btn btn-primary"
+                className="btn btn-primary"
                 data-bs-dismiss="modal"
                 onClick={handleBuy}
               >

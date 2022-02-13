@@ -6,7 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../utils/init-firebase";
 import { useAuth } from "../contexts/AuthContext";
 
-const Redeem = ({showAlert}) => {
+const Redeem = () => {
   const [utilities, setutilities] = useState([]);
 
   const utilitiesCollectionRef = collection(db, "utilities");
@@ -32,10 +32,10 @@ const Redeem = ({showAlert}) => {
     <>
       <section className="header">
         <Navbar />
-        <div class="container1">
+        <div className="container1">
           {utilities?.map((utility) => (
             <CardRedeem
-            key={utility.id}
+              key={utility.id}
               image={utility.image}
               id={utility.id}
               uid={userId}
@@ -43,7 +43,6 @@ const Redeem = ({showAlert}) => {
               points={utility.points}
               desc={utility.desc}
               quantity={utility.quantity}
-              showAlert={showAlert}
             />
           ))}
         </div>
