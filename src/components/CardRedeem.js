@@ -4,24 +4,32 @@ const CardRedeem = (props) => {
   return (
     <>
       <div class="card">
-        <div class="content">
-        <img
+        <div class="content" style={{ height: "250px" }}>
+          <img
             src={"/images/tractor.png"}
-            alt="Missing" width="200px" height="120px"
-            style={{ minHeight: "125px" ,maxHeight: "125px", objectFit: "fill"}}
+            alt="Missing"
+            width="200px"
+            height="120px"
+            style={{
+              minHeight: "125px",
+              maxHeight: "125px",
+              objectFit: "fill",
+            }}
           />
-          <h2 style={{paddingTop:"20px"}}>{props.name}</h2>
+          <h2 style={{ paddingTop: "20px" }}>{props.name}</h2>
           <p>Points: {props.points}</p>
-          <p style={{lineHeight:1 , color:"gray" ,fontSize:"13px"}}>{props.desc}</p>
+          <p style={{ lineHeight: 1, color: "gray", fontSize: "13px" }}>
+            {props.desc}
+          </p>
         </div>
         <button
           type="button"
           class="btn btn-info"
           data-bs-toggle="modal"
           data-bs-target={"#exampleModal" + props.id}
-          style={{width:"80%" , background: "#1572A1" ,color: "#9AD0EC"}}
+          style={{ width: "80%", background: "#1572A1", color: "#9AD0EC" }}
         >
-          Sell
+          Redeem
         </button>
       </div>
       <div

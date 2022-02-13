@@ -95,7 +95,7 @@ const Login = ({ handleLogin, loginin }) => {
             />
           </Box>
           <Checkbox mr="170px" my="4" colorScheme="blue" defaultIsChecked>
-            Checkbox
+            Remember Me
           </Checkbox>
           <br />
           <Button type="submit" my="4" colorScheme="teal" variant="solid">
