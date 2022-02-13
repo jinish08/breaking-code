@@ -1,28 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  updateDoc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../utils/init-firebase";
 import { useAuth } from "../contexts/AuthContext";
 
+// import { collection, query, where, getDocs } from "firebase/firestore";
+
 export const Navbar = () => {
-  const [users, setusers] = useState([]);
-
-  const usersCollectionRef = collection(db, "users");
-
-  const [quantity, setQuantity] = useState(0);
-
   const { currentUser } = useAuth();
-
+  const uid = currentUser.uid;
+  const [user, setUser] = useState({});
   useEffect(() => {
-    const getusers = async () => {
+    const getuser = async () => {
       try {
-        const data = await getDocs(usersCollectionRef);
+        // const userRef = collection(db, "users");
+        // const q = query(userRef, where("user_id", "==", uid));
+        // const querySnapshot = await getDocs(q);
+        // const userID = querySnapshot.docs[0].id;
+        // console.log(userID);
+        // const userDoc = doc(db, "users", userID);
+        // console.log(userDoc.);
+        const q = query(collection(db, "users"), where("user_id", "==", uid));
 
-        setusers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          // console.log(doc.id, " => ", doc.data());
+          setUser(doc.data());
+          console.log(user);
+        });
       } catch (error) {
         console.log(error.message);
       }
     };
-    getusers();
+    getuser();
   }, []);
 
   return (
@@ -112,7 +130,7 @@ export const Navbar = () => {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">
-                <p>Lance Correia</p>
+                <p>{user.name}</p>
               </h5>
               <button
                 type="button"
@@ -122,9 +140,9 @@ export const Navbar = () => {
               ></button>
             </div>
             <div class="modal-body">
-              <p>Points: </p>
-              <p>Email</p>
-              <p>Address</p>
+              <p>Points: {user.points}</p>
+              <p>Email: {user.email}</p>
+              <p>Address: {user.address}</p>
             </div>
           </div>
         </div>
