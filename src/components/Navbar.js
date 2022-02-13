@@ -42,13 +42,13 @@ export const Navbar = () => {
       }
     };
     getuser();
-  }, []);
+  }, [user]);
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light ">
         <div className="container-fluid">
-          <NavLink className="navbar-brand" to="/main">
+          <NavLink className="navbar-brand" to="/main" style={{marginLeft:"60px"}}>
             Farm Grow
           </NavLink>
           <button
