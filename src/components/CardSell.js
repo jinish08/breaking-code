@@ -1,6 +1,14 @@
 import { hover } from "@testing-library/user-event/dist/hover";
 import React, { useState } from "react";
-import { collection, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  updateDoc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../utils/init-firebase";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -14,7 +22,7 @@ const CardSell = (props) => {
     try {
       // const productsCollectionRef = collection(db, 'products');
       const productDoc = doc(db, "products", id);
-      const newField = { quantity: quantity + sellquantity };
+      const newField = { quantity: parseInt(quantity) + parseInt(sellquantity) };
       await updateDoc(productDoc, newField);
       console.log("Sold Succesfully");
     } catch (error) {
@@ -22,16 +30,32 @@ const CardSell = (props) => {
     }
 
     try {
+      const userRef = collection(db, "users");
+      const q = query(userRef, where("user_id", "==", uid));
+      const querySnapshot = await getDocs(q);
+      const userID = querySnapshot.docs[0].id;
+      console.log(userID);
+      const userDoc = doc(db, "users", userID);
       if (props.address !== newAddress) {
-        console.log(uid);
-        const userDoc = doc(db, "users", uid);
         const newField = { address: newAddress };
         await updateDoc(userDoc, newField);
         console.log("Address Updated Succesfully");
       }
+      try{
+        const points = querySnapshot.docs[0].data().points;
+        const newField = { points: parseInt(points)+parseInt(sellquantity*props.points) };
+        await updateDoc(userDoc, newField);
+        console.log("Points Updated Succesfully by " + sellquantity*props.points);
+      } catch (error) {
+        console.log(error);
+      }
     } catch (error) {
       console.log(error);
     }
+
+    document.getElementById("exampleModal" + props.id).classList.remove("show", "d-block");
+    document.querySelectorAll(".modal-backdrop")
+            .forEach(el => el.classList.remove("modal-backdrop"));
   };
 
   return (
@@ -114,6 +138,7 @@ const CardSell = (props) => {
                 type="button"
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"
+                data-bs-toggle="modal"
               >
                 Close
               </button>
