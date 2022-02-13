@@ -2,18 +2,33 @@ import React, { useEffect, useState } from 'react';
 import CardSell from "../components/CardSell";
 import { Navbar } from "../components/Navbar";
 import "../css/main.css";
-import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../utils/init-firebase';
 import { useAuth } from '../contexts/AuthContext';
+import {
+  collection,
+  doc,
+  updateDoc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 const Sell = () => {
   const [products, setProducts] = useState([]);
 
 	const productsCollectionRef = collection(db, 'products');
+  const userRef = collection(db, "users");
 
   const [quantity, setQuantity] = useState(0);
 
+  const [address, setAddress] = useState("");
+
   const {currentUser} = useAuth();
+
+  
+  const userId = currentUser.uid;
+  console.log(userId);
 
 
   useEffect(() => {
@@ -26,15 +41,22 @@ const Sell = () => {
 				console.log(error.message);
 			}
 		};
+    const getUser = async () => {
+      try {
+          const q = query(userRef, where("user_id", "==", userId));
+          const querySnapshot = await getDocs(q);
+          const userData = querySnapshot.docs[0].data();
+          setAddress(userData.address);
+          console.log("This is address"+address);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getUser();
 		getProducts();
 	}, []);
 
-  const userId = currentUser.uid;
-  const address = currentUser.address;
-
-  console.log(userId);
   
-
   return (
     <>
       <section className="header">

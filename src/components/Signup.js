@@ -44,7 +44,7 @@ const Signup = ({ handleSign , sign }) => {
 			user_id: authUser.user.uid,
             name: username,
             email: authUser.user.email,
-            point: 0,
+            points: 0,
             address: "",
 		});
         navigate("/main");
