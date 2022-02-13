@@ -1,6 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  collection,
+  doc,
+  updateDoc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { db } from "../utils/init-firebase";
 
 const CardRedeem = (props) => {
+  const { id, uid, quantity , showAlert } = props;
+
+  const handleBuy = async () => {
+    try {
+      const userRef = collection(db, "users");
+      const q = query(userRef, where("user_id", "==", uid));
+      const querySnapshot = await getDocs(q);
+      const userID = querySnapshot.docs[0].id;
+      console.log(userID);
+      const userDoc = doc(db, "users", userID);
+      const points = querySnapshot.docs[0].data().points;
+      if (parseInt(points) >= parseInt(props.points)) {
+        try {
+          const utilDoc = doc(db, "utilities", id);
+          const newField = { quantity: parseInt(quantity) - 1 };
+          await updateDoc(utilDoc, newField);
+          console.log("Bought Succesfully");
+          showAlert("Bought Succesfully", "success");
+        } catch (error) {
+          console.log(error);
+        }
+        try {
+          const newField = {
+            points: parseInt(points) - parseInt(props.points),
+          };
+          await updateDoc(userDoc, newField);
+          console.log("Points Updated Succesfully by " + props.points);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        console.log("Insufficient Points");
+        showAlert("Insufficient Points", "danger");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div class="card">
@@ -68,6 +116,7 @@ const CardRedeem = (props) => {
                 type="button"
                 class="btn btn-primary"
                 data-bs-dismiss="modal"
+                onClick={handleBuy}
               >
                 Confirm Purchase
               </button>
